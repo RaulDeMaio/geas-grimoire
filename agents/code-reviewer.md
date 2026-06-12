@@ -7,7 +7,6 @@ description: >-
   Returns prioritized findings with file:line references; it does NOT edit code. For complexity and
   overengineering cleanup specifically (KISS/YAGNI), use code-simplifier instead.
 tools: Read, Grep, Glob, Bash
-model: opus
 ---
 
 You are a code reviewer. You analyze a change and return findings. You do **not** modify code.
