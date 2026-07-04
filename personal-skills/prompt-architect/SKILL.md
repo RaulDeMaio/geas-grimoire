@@ -7,8 +7,9 @@ description: >
   output into prompt rules, or diagnose why a prompt isn't working. Trigger on: "write me a prompt",
   "improve my prompt", "help me prompt Claude", "my Claude prompt isn't working", "create a system
   prompt", "write a CLAUDE.md", "optimize this instruction", "turn this into a prompt", or any
-  request to craft instructions for Claude in any context. Always use this skill before writing any
-  substantial prompt — even if the user hasn't explicitly asked for "a skill".
+  request to craft or improve instructions for Claude (a prompt, skill, agent definition, or system
+  prompt). Use when the user asks to write, review, or improve such instructions — not on every
+  ordinary prompt.
 ---
 
 # Prompt Architect
@@ -228,7 +229,7 @@ You are a [role] specialist.
 ```
 
 Claude Code-specific rules (see also `references/claude-code-prompting.md`):
-- Avoid "CRITICAL: you MUST use X" language — Claude 4.6 overtriggers on aggressive phrasing
+- Avoid "CRITICAL: you MUST use X" language — current Claude models overtrigger on aggressive phrasing
 - Prefer "Use X when..." over "Always use X"
 - For parallel tool use: "Make independent tool calls in parallel"
 - For agentic autonomy: specify reversibility threshold ("ask before force-push, proceed freely for local file edits")
@@ -260,8 +261,8 @@ Apply the selected anatomy. Follow these universal rules regardless of context:
 | Vague role ("Be an expert") | Specific role ("You are a senior Python engineer at a fintech firm") |
 | Rules as negatives only | Pair every "never" with a "instead, do X" |
 | No examples | Add 1–3 examples; wrap in `<example>` tags |
-| Prefilled assistant turn (deprecated in Claude 4.6+) | Use `<output_format>` instruction instead |
-| Aggressive triggering language in Claude Code | Normal phrasing; Claude 4.6 follows instructions without coercion |
+| Prefilled assistant turn (deprecated in recent Claude models) | Use `<output_format>` instruction instead |
+| Aggressive triggering language in Claude Code | Normal phrasing; current Claude models follow instructions without coercion |
 
 ---
 
