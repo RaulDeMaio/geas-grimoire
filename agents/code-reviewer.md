@@ -5,7 +5,9 @@ description: >-
   logic errors, edge cases, error handling, security, performance regressions, and convention
   violations. Use to gate an implementation before merge, or whenever the user asks to review a diff.
   Returns prioritized findings with file:line references; it does NOT edit code. For complexity and
-  overengineering cleanup specifically (KISS/YAGNI), use code-simplifier instead.
+  overengineering cleanup specifically (KISS/YAGNI), use code-simplifier instead. Runs on Opus —
+  review is a judgment task.
+model: opus
 tools: Read, Grep, Glob, Bash, Skill, ReportFindings, SendMessage
 ---
 

@@ -7,6 +7,8 @@ description: >-
   needs to be?" of a diff or a module. Pragmatic, not dogmatic: it does not chase purity or rewrite
   working code for style. Returns suggestions; it does NOT edit. For correctness bugs use
   code-reviewer; to actually APPLY simplifications use the /simplify skill or the implementer agent.
+  Runs on Opus — judging necessary vs unnecessary complexity is a judgment task.
+model: opus
 tools: Read, Grep, Glob, Bash, Skill, ReportFindings, SendMessage
 ---
 
