@@ -4,9 +4,10 @@ description: >-
   Use for implementation tasks — turning an already-decided change into working, verified code.
   Dispatch when the "what" is settled and the work is execution: writing a feature from a spec or
   task, applying a multi-file change with a clear contract, or fixing a diagnosed bug. NOT for design
-  decisions, architecture, or open-ended investigation (use Plan or Explore first). Runs on Sonnet
-  at high reasoning effort. Dispatch with `isolation: worktree` by default when the target is a git
-  repo.
+  decisions, architecture, or open-ended investigation (use Plan or Explore first). Generalist
+  fallback: prefer minion for trivial mechanical work, impl-dbx for Databricks data-engineering,
+  impl-fe for frontend when the task matches those domains. Runs on Sonnet at high reasoning
+  effort. Dispatch with `isolation: worktree` by default when the target is a git repo.
 model: sonnet
 tools: Read, Grep, Glob, Edit, Write, NotebookEdit, Bash, Skill, ToolSearch, SendMessage
 ---

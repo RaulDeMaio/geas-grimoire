@@ -6,7 +6,11 @@ Precedence note: for **agents**, project scope overrides user scope (a repo's co
 
 | Agent | Role | Edits files? | Model |
 |---|---|---|---|
-| `implementer` | Executes an already-decided change; commits to a branch in an isolated worktree. | yes | none — route by complexity at dispatch |
+| `orchestrator` | Background PI for multi-wave delegated workflows: dispatches subagents routed by complexity, synthesizes reports, never holds bulk artifacts. | no (delegates) | opus |
+| `implementer` | Generalist fallback: executes an already-decided change; commits to a branch in an isolated worktree. Prefer a domain profile below when one matches. | yes | sonnet |
+| `impl-dbx` | Databricks data-engineering implementer (ingestion bronze/silver, dbt gold, DAB YAML, delivery). | yes | sonnet |
+| `impl-fe` | Frontend implementer (React product UI + OE brand HTML assets); dispatch `model: opus` for design-heavy work. | yes | sonnet |
+| `minion` | Trivial mechanical executor (moves, renames, one-liners, doc updates); anonymous subagent, never a named teammate. | yes | haiku |
 | `code-reviewer` | Read-only review of a diff for correctness bugs + quality/security/perf. | no | none — route by complexity at dispatch |
 | `code-simplifier` | Read-only pragmatic complexity audit (KISS/YAGNI; overengineering, code smells). | no | none — route by complexity at dispatch |
 | `speckit-cleanup-runner` | Thin dispatcher for `/speckit-cleanup-run` in any `.specify/`-initialized repo. | via skill | haiku |
