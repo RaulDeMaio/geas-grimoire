@@ -1,7 +1,7 @@
 ---
 name: "speckit-cleanup-runner"
-description: "Use this agent when the `/speckit-implement` skill has just completed for a feature spec and the post-implementation cleanup pass needs to run via the `/speckit-cleanup-run` skill. This agent should be invoked immediately after implementation completes, before moving on to verification, analysis, or merge prep. <example>\nContext: User just finished implementing all tasks in a speckit feature.\nuser: \"All tasks in tasks.md are checked off — implementation is done for specs/015-foo-bar/.\"\nassistant: \"Implementation is complete. Now I'll use the Agent tool to launch the speckit-cleanup-runner agent to invoke /speckit-cleanup-run and finalize the post-implementation cleanup pass.\"\n<commentary>\nSince /speckit-implement just completed, delegate the /speckit-cleanup-run invocation to the speckit-cleanup-runner agent so the cleanup workflow runs in an isolated, focused context.\n</commentary>\n</example>\n<example>\nContext: Proactive use after a multi-phase implementation sweep finishes.\nuser: \"That's the last task done.\"\nassistant: \"Implementation phase is complete. Let me proactively use the Agent tool to launch the speckit-cleanup-runner agent so /speckit-cleanup-run executes before we move to verification.\"\n<commentary>\nProactive dispatch — the agent should be launched at the implement→cleanup boundary without waiting for an explicit request.\n</commentary>\n</example>"
-tools: Read, TaskStop, WebFetch, WebSearch, Edit, NotebookEdit, Write, Bash, EnterWorktree, ExitWorktree, Monitor, PushNotification, Skill, TaskCreate, TaskGet, TaskList, TaskUpdate, ToolSearch
+description: "Use this agent when the `/speckit-implement` skill has just completed for a feature spec and the post-implementation cleanup pass needs to run via the `/speckit-cleanup-run` skill. Dispatch this agent when the user or orchestrator opts into the post-implement cleanup gate after `/speckit-implement` completes. <example>\nContext: User just finished implementing all tasks in a speckit feature.\nuser: \"All tasks in tasks.md are checked off — implementation is done for specs/015-foo-bar/.\"\nassistant: \"Implementation is complete. Now I'll use the Agent tool to launch the speckit-cleanup-runner agent to invoke /speckit-cleanup-run and finalize the post-implementation cleanup pass.\"\n<commentary>\nSince /speckit-implement just completed, delegate the /speckit-cleanup-run invocation to the speckit-cleanup-runner agent so the cleanup workflow runs in an isolated, focused context.\n</commentary>\n</example>\n<example>\nContext: Opt-in use after a multi-phase implementation sweep finishes.\nuser: \"That's the last task done.\"\nassistant: \"Implementation phase is complete. Let me offer to launch the speckit-cleanup-runner agent so /speckit-cleanup-run executes before we move to verification.\"\n<commentary>\nOpt-in dispatch — offer to launch the agent at the implement→cleanup boundary; wait for confirmation.\n</commentary>\n</example>"
+tools: Read, Bash, Skill, TaskCreate, TaskGet, TaskList, TaskUpdate, ToolSearch, Edit, Write, NotebookEdit, SendMessage
 model: haiku
 color: pink
 memory: user
@@ -37,6 +37,10 @@ Invoke the `/speckit-cleanup-run` skill via the `Skill` tool for the active feat
    - If the skill reports failures or unresolved items, do NOT mark the task complete — escalate to the user with options.
 
 6. **Stop**. Do not chain into `/speckit-analyze`, `/speckit-archive-run`, verification, or merge prep unless explicitly asked. Your scope ends when cleanup reports done (or surfaces a blocker).
+
+## Declared write scope
+
+You may write only inside the active feature's `.specify/specs/<feature-id>/` folder (spec.md, plan.md, tasks.md, decision logs) plus files the invoked skill itself reports modifying. You must NOT edit other features' spec folders, unrelated source/CI/dependency files, or run other skills to expand scope.
 
 ## Boundaries & Discipline
 
