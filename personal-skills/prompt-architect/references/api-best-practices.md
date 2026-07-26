@@ -41,7 +41,7 @@ Last verified: April 2026
 
 ## Output and Formatting
 
-### Communication Style (Claude 4.6+)
+### Communication Style (recent Claude models)
 - More concise and direct than previous models
 - May skip post-tool-call summaries; add "After tool use, summarize what you did" if needed
 
@@ -57,7 +57,7 @@ Reserve markdown for inline code, code blocks, and simple headings (##, ###).
 Do not use bullet points or numbered lists unless presenting truly discrete items.
 ```
 
-### Deprecated (Claude 4.6+)
+### Deprecated (recent Claude models)
 - **Prefilled assistant turns** (last assistant message) are deprecated
 - Migrate: use `<output_format>` instruction in system prompt instead
 - Example migration: instead of prefill `{`, use instruction "Respond with only a JSON object, no preamble"
@@ -72,11 +72,11 @@ Do not use bullet points or numbered lists unless presenting truly discrete item
 - Conservative default: "Do not edit files unless explicitly instructed. Default to providing information and recommendations."
 
 ### Parallel Tool Calls
-- Claude 4.6 models excel at parallel execution
+- Current Claude models excel at parallel execution
 - Boost to ~100%: "When tool calls have no dependencies between them, make all independent calls in parallel"
 - Reduce: "Execute operations sequentially with brief pauses for stability"
 
-### Claude 4.6 Calibration
+### Current Claude Calibration
 - These models are **more proactive** than previous versions
 - Remove aggressive language like "CRITICAL: you MUST use X" — it causes overtriggering
 - Replace "If in doubt, use [tool]" with "Use [tool] when it would enhance understanding"
@@ -85,7 +85,7 @@ Do not use bullet points or numbered lists unless presenting truly discrete item
 
 ## Thinking and Reasoning
 
-### Adaptive Thinking (Claude 4.6+)
+### Adaptive Thinking (recent Claude models)
 - `thinking: {type: "adaptive"}` — Claude decides when and how much to think
 - Controlled via `effort` parameter: `low` / `medium` / `high` / `max`
 - Better than manual `budget_tokens` in most cases
@@ -111,7 +111,7 @@ Do not use bullet points or numbered lists unless presenting truly discrete item
 - Subsequent windows: iterate against todo list
 
 ### Context Window Management
-- Claude 4.6 has context awareness (tracks token budget)
+- Current Claude models have context awareness (tracks token budget)
 - If your harness compacts context automatically: "Your context will be compacted automatically. Do not stop tasks due to token concerns."
 - Otherwise Claude may wrap up work prematurely near context limit
 
@@ -124,9 +124,9 @@ Do not use bullet points or numbered lists unless presenting truly discrete item
 - Encourage cross-source verification
 - For complex research: "Develop competing hypotheses. Track confidence levels. Update a hypothesis file. Self-critique regularly."
 
-### Subagent Orchestration (Claude 4.6)
+### Subagent Orchestration (recent Claude models)
 - Models proactively delegate without explicit instruction
-- Watch for overuse: Claude Opus 4.6 may spawn subagents for simple grep calls
+- Watch for overuse: Claude Opus may spawn subagents for simple grep calls
 - Calibrate: "Use subagents for parallel/isolated tasks. Work directly for single-file edits or tasks needing shared context."
 
 ### Minimizing Hallucinations
