@@ -14,7 +14,7 @@ executes bash commands, makes tool calls, and iterates. This changes how prompts
 
 - Instructions must survive **multi-turn context** — Claude re-reads CLAUDE.md on every new context window
 - Prompts must handle **tool orchestration** — Claude decides when to grep, read files, run commands
-- Tone matters differently — aggressive coercion language causes overtriggering on Claude 4.6+
+- Tone matters differently — aggressive coercion language causes overtriggering on current Claude models
 
 ---
 
@@ -158,7 +158,7 @@ You are a [specific role] specialist.
 [What format, where to put results, how to signal completion]
 ```
 
-### Agent Trigger Language (Claude 4.6+)
+### Agent Trigger Language (recent Claude models)
 **Do NOT use:**
 - "CRITICAL: ALWAYS delegate to this agent"
 - "You MUST use this agent when..."
@@ -169,7 +169,7 @@ You are a [specific role] specialist.
 - "Use for [domain] tasks, especially when [trigger phrase]"
 - "This agent handles [scope] — route here for [examples]"
 
-Claude 4.6 models follow normal instructions reliably. Aggressive language causes overtriggering.
+Current Claude models follow normal instructions reliably. Aggressive language causes overtriggering.
 
 ---
 
@@ -219,9 +219,9 @@ Only grep if the above files don't contain what you need.
 
 ---
 
-## Calibration: Claude 4.6 vs Previous Models
+## Calibration: Current vs Previous Models
 
-| Behavior | Old models | Claude 4.6 |
+| Behavior | Old models | Current models |
 |---|---|---|
 | Tool triggering | Needed aggressive prompting | Triggers reliably on normal language |
 | Parallel tool use | Sometimes needed coaxing | Default behavior |
@@ -288,6 +288,6 @@ and git log before continuing.
 1. **CLAUDE.md over 500 lines** — Claude skims it. Move details to `references/`.
 2. **Vague constraints** — "Be careful with databases" → "Never run DELETE without a WHERE clause. Never DROP without explicit confirmation."
 3. **No workflow definition** — Claude invents its own. Define the loop explicitly.
-4. **Aggressive tone on Claude 4.6** — Causes overtriggering. Use normal language.
+4. **Aggressive tone on current Claude models** — Causes overtriggering. Use normal language.
 5. **No quality gate** — Add a checklist Claude verifies before marking a task done.
 6. **No file map** — Claude greps everything. A 5-line codebase map saves hundreds of tokens per session.
