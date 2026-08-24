@@ -34,12 +34,15 @@ For each dir in `~/.claude/projects/*/memory/`:
 - For each memory dir with a `MEMORY.md`: verify every file has an index line and every
   index line points at an existing file. Report mismatches.
 
-### 4. Repo vault expiry (rule D-2) — only where the vault has ontology fields
+### 4. Repo vault expiry (rule D-2) — read lifecycle from entry bodies OR the index
 
-- In each repo with `docs/memory/`: if entries carry `review_by`/`status` fields, list
-  entries with `review_by` in the past and `status: active`. Propose `status: stale`
-  (excluded from synthesis) pending human confirm-or-extend. If the ontology fields are
-  not yet rolled out in that repo, note "vault expiry skipped — ontology fields not
+- In each repo with `docs/memory/`: find entries with `review_by` in the past and
+  `status: active`, and propose `status: stale` (excluded from synthesis) pending human
+  confirm-or-extend. Read `review_by`/`status` from the entry field block where present;
+  where entry *bodies* are legacy/grandfathered, read them from the `INDEX.md` table rows
+  (many repos backfill lifecycle columns into the index without touching the bodies — the
+  index is a valid source of truth for D-2). Only if neither the bodies nor the index
+  carry `review_by`/`status` at all, note "vault expiry skipped — ontology fields not
   present" and move on. Do NOT edit vault files in this skill; vault changes go through
   a PR.
 

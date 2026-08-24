@@ -1,7 +1,7 @@
 ---
 name: "speckit-cleanup-runner"
 description: "Use this agent when the `/speckit-implement` skill has just completed for a feature spec and the post-implementation cleanup pass needs to run via the `/speckit-cleanup-run` skill. Dispatch this agent when the user or orchestrator opts into the post-implement cleanup gate after `/speckit-implement` completes. <example>\nContext: User just finished implementing all tasks in a speckit feature.\nuser: \"All tasks in tasks.md are checked off — implementation is done for specs/015-foo-bar/.\"\nassistant: \"Implementation is complete. Now I'll use the Agent tool to launch the speckit-cleanup-runner agent to invoke /speckit-cleanup-run and finalize the post-implementation cleanup pass.\"\n<commentary>\nSince /speckit-implement just completed, delegate the /speckit-cleanup-run invocation to the speckit-cleanup-runner agent so the cleanup workflow runs in an isolated, focused context.\n</commentary>\n</example>\n<example>\nContext: Opt-in use after a multi-phase implementation sweep finishes.\nuser: \"That's the last task done.\"\nassistant: \"Implementation phase is complete. Let me offer to launch the speckit-cleanup-runner agent so /speckit-cleanup-run executes before we move to verification.\"\n<commentary>\nOpt-in dispatch — offer to launch the agent at the implement→cleanup boundary; wait for confirmation.\n</commentary>\n</example>"
-tools: Read, Bash, Skill, TaskCreate, TaskGet, TaskList, TaskUpdate, ToolSearch, Edit, Write, NotebookEdit
+tools: Read, Bash, Skill, TaskCreate, TaskGet, TaskList, TaskUpdate, ToolSearch, Edit, Write, NotebookEdit, SendMessage
 model: haiku
 color: pink
 memory: user

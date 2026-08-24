@@ -1,15 +1,11 @@
 ---
 name: prompt-architect
-description: >
-  Build, critique, or optimize prompts for Claude — whether for Claude.ai chat, API system prompts,
-  or Claude Code CLAUDE.md / slash command / agent definitions. Use this skill whenever the user
-  wants to write a new prompt from scratch, improve an existing one, reverse-engineer a reference
-  output into prompt rules, or diagnose why a prompt isn't working. Trigger on: "write me a prompt",
-  "improve my prompt", "help me prompt Claude", "my Claude prompt isn't working", "create a system
-  prompt", "write a CLAUDE.md", "optimize this instruction", "turn this into a prompt", or any
-  request to craft or improve instructions for Claude (a prompt, skill, agent definition, or system
-  prompt). Use when the user asks to write, review, or improve such instructions — not on every
-  ordinary prompt.
+description: >-
+  Build, critique, or optimize prompts for Claude — Claude.ai chat, API system prompts, or Claude
+  Code CLAUDE.md / slash command / agent definitions. Trigger on: "write me a prompt", "improve my
+  prompt", "help me prompt Claude", "my Claude prompt isn't working", "create a system prompt",
+  "write a CLAUDE.md", "optimize this instruction", "turn this into a prompt". Only when asked to
+  write, review, or improve instructions for Claude — not on every ordinary prompt.
 ---
 
 # Prompt Architect

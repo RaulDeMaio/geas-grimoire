@@ -1,6 +1,11 @@
 ---
 name: assess-indicator
-description: End-to-end assessment of a single Gold-layer KPI/indicator delivered to a data product (Dataroom, OpenCore, or any consumer). Use this skill whenever the user wants to audit, verify, validate, sanity-check, assess, review, or investigate the correctness of a specific indicator column on a Gold table — including questions like "is this KPI computed correctly?", "does our NEET / unemployment / GDP / X indicator match the canonical formula?", "trace this metric back to its source", "is the denominator scope right?", or any request to compare an implemented business metric against its official statistical definition (Eurostat / ISTAT / ILO / Worldbank / OECD / SDMX). Trigger even when the user doesn't say "assessment" — phrases like "check the formula for column X", "verify how column Y is built", "audit indicator Z", "is the filter for KPI W correct?" all qualify. Generalizes the audit pattern from a worked example (see `references/`) to any Gold KPI.
+description: >-
+  Audit a single Gold-layer KPI/indicator column against its official statistical definition
+  (Eurostat / ISTAT / ILO / Worldbank / OECD / SDMX) and trace it back to source. Use for "is
+  this KPI computed correctly?", "check the formula for column X", "verify how column Y is
+  built", "audit indicator Z", "is the denominator scope right?", or any request to compare an
+  implemented business metric against its canonical definition.
 ---
 
 # Assess Indicator

@@ -1,16 +1,11 @@
 ---
 name: self-harness
-description: >
-  Mine your own past Claude Code sessions for recurring failure patterns, then propose and
-  validate targeted improvements to the harness — the editable scaffolding around the model:
-  CLAUDE.md (user and project scope), skills, agents, hooks, and settings.json. Use this whenever
-  the user wants to understand what keeps going wrong across sessions, why Claude repeatedly makes
-  the same mistake, why a documented rule still gets violated, or how to improve their setup based
-  on real history rather than guesswork. Trigger on phrases like "improve my harness", "run a
-  harness review", "self-harness", "mine my sessions", "what keeps going wrong", "why does Claude
-  keep doing X", "audit my CLAUDE.md against what actually happens", or when setting up a scheduled
-  periodic review of the setup. Also trigger when a user is frustrated by a repeated correction and
-  wants a systemic fix rather than another one-off reminder.
+description: >-
+  Mine past Claude Code sessions for recurring failure patterns, then propose and validate
+  targeted fixes to the harness — CLAUDE.md, skills, agents, hooks, settings.json. Use for
+  "improve my harness", "run a harness review", "mine my sessions", "what keeps going wrong",
+  "why does Claude keep doing X", "audit my CLAUDE.md against what actually happens", or when a
+  repeated correction needs a systemic fix rather than another reminder.
 ---
 
 # Self-Harness
