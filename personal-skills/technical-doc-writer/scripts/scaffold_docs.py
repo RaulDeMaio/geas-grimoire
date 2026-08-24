@@ -2,17 +2,23 @@ import os
 import argparse
 import sys
 
+
 def create_file(path, content):
     if os.path.exists(path):
         print(f"Skipping {path} (already exists)")
         return
-    with open(path, 'w') as f:
+    with open(path, "w") as f:
         f.write(content)
     print(f"Created {path}")
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Scaffold technical documentation structure.")
-    parser.add_argument("output_dir", help="Target directory for documentation (e.g., docs/technical)")
+    parser = argparse.ArgumentParser(
+        description="Scaffold technical documentation structure."
+    )
+    parser.add_argument(
+        "output_dir", help="Target directory for documentation (e.g., docs/technical)"
+    )
     args = parser.parse_args()
 
     base_dir = args.output_dir
@@ -161,13 +167,14 @@ graph TD;
 ## External Dependencies
 
 ## API Versioning Strategy
-"""
+""",
     }
 
     for filename, content in files.items():
         create_file(os.path.join(base_dir, filename), content)
 
     print("\nDocumentation scaffolding complete.")
+
 
 if __name__ == "__main__":
     main()
