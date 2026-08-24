@@ -120,6 +120,15 @@ description: One-sentence description
 ---
 ```
 
+### personal-skills/ live symlinks
+
+`/root/.claude/skills/<name>` entries (loaded live by Claude Code every session) are symlinks into
+`personal-skills/skills/<category>/<name>/` in this repo — not plain directories. Categories:
+`engineering/`, `productivity/`, `speckit/`, `brand/`, `meta/` (symlinked live) and `archive/`
+(repo-only, not symlinked). Edit through the repo path — editing through the symlink is equivalent
+and fine — but never recreate a plain directory under `~/.claude/skills/`; that forks the skill into
+two independently-editable copies again.
+
 ## Documentation Standards
 
 - **Token efficiency**: Be concise, avoid fluff. Use imperative verbs ("Run", "Create")

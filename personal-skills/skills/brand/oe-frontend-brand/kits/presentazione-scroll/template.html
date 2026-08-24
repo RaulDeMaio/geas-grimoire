@@ -1,0 +1,98 @@
+<!doctype html><html lang="it" data-brand="oe"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Presentazione — OpenEconomics</title>
+<link rel="stylesheet" href="../../ds-kit/fonts.css">
+<link rel="stylesheet" href="../../ds-kit/colors_and_type.css">
+<style>
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--oe-font-sans);font-weight:300;color:var(--oe-fg);background:var(--oe-bg);font-size:20px;line-height:1.5}
+  .deck{scroll-snap-type:y proximity}
+  .slide{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:var(--oe-space-12) var(--oe-page-pad);scroll-snap-align:start;box-sizing:border-box}
+  .slide__inner{max-width:1100px;margin:0 auto;width:100%}
+  .eyebrow{font-family:var(--oe-font-mono);text-transform:uppercase;background:var(--oe-lime-400);color:#000;display:inline-block;padding:6px 12px;font-size:14px;letter-spacing:.04em}
+  .eyebrow + h1, .eyebrow + h2{margin-top:var(--oe-space-4)}
+  h1{font-family:var(--oe-font-serif);font-size:clamp(44px,7vw,88px);font-weight:400;line-height:1.05;margin:.3em 0 0}
+  h2{font-family:var(--oe-font-serif);font-size:clamp(32px,5vw,56px);font-weight:400;line-height:1.1;margin:.3em 0 0}
+  .intro{font-size:clamp(18px,2.2vw,26px);max-width:760px;margin-top:var(--oe-space-5);color:var(--oe-fg-soft)}
+  .s-dark{background:var(--oe-bluette-900);color:var(--oe-white)} .s-dark h1,.s-dark h2{color:#fff} .s-dark .intro{color:rgba(255,255,255,.85)}
+  .s-light{background:var(--oe-white)} .s-grey{background:var(--oe-gray-100)}
+  .s-primary{background:var(--oe-bluette-700);color:var(--oe-white)} .s-primary h2{color:#fff}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--oe-space-6);margin-top:var(--oe-space-8)}
+  .card{background:var(--oe-white);box-shadow:var(--oe-shadow-1);padding:var(--oe-space-6)}
+  .card h3{font-family:var(--oe-font-sans);font-weight:500;font-size:22px;margin:0 0 var(--oe-space-2)}
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:var(--oe-space-7);margin-top:var(--oe-space-8)}
+  .compare__col{background:var(--oe-white);box-shadow:var(--oe-shadow-1);padding:var(--oe-space-7)}
+  .compare__tag{font-family:var(--oe-font-mono);text-transform:uppercase;font-size:13px;color:var(--oe-bluette-700)}
+  .compare__col h3{font-family:var(--oe-font-serif);font-weight:400;font-size:28px;margin:var(--oe-space-2) 0 var(--oe-space-3)}
+  .compare__meta{list-style:none;padding:0;margin:var(--oe-space-4) 0 0;font-family:var(--oe-font-mono);font-size:13px;color:var(--oe-gray-700);display:grid;gap:6px}
+  @media(max-width:768px){.compare{grid-template-columns:1fr}}
+  .bullets{list-style:none;padding:0;margin:var(--oe-space-8) 0 0;display:grid;gap:var(--oe-space-4);font-size:24px}
+  .bullets li{padding-left:28px;position:relative}
+  .bullets li::before{content:"";position:absolute;left:0;top:.55em;width:14px;height:14px;background:var(--oe-lime-400)}
+  .cta-btn{display:inline-flex;align-items:center;gap:4px;margin-top:var(--oe-space-7);font-family:var(--oe-font-mono);text-transform:uppercase;font-size:15px;text-decoration:none}
+  .cta-btn .tile{background:var(--oe-lime-400);color:#000;width:44px;height:44px;display:grid;place-items:center}
+  .cta-btn .label{background:var(--oe-lime-400);color:#000;height:44px;display:flex;align-items:center;padding:0 18px}
+  /* dot-nav */
+  .navdots{position:fixed;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:50}
+  .navdots a{width:11px;height:11px;border:1px solid var(--oe-gray-500);background:transparent;display:block}
+  .navdots a.active{background:var(--oe-bluette-700);border-color:var(--oe-bluette-700)}
+  @media(max-width:768px){.navdots{display:none}}
+  .tbl-wrap{margin-top:var(--oe-space-8);overflow-x:auto}
+  .tbl{width:100%;border-collapse:collapse;font-size:16px}
+  .tbl th{background:var(--oe-bluette-700);color:#fff;text-align:left;padding:var(--oe-space-4);font-family:var(--oe-font-mono);text-transform:uppercase;font-size:13px;font-weight:400;letter-spacing:.03em;vertical-align:top}
+  .tbl td{padding:var(--oe-space-4);border-bottom:1px solid var(--oe-gray-200);vertical-align:top;color:var(--oe-fg-soft)}
+  .tbl tbody tr:nth-child(even){background:var(--oe-bluette-050)}
+  .tbl .tbl-key{font-weight:600;color:var(--oe-bluette-700)}
+  .lane1{background:var(--oe-bluette-900);color:#fff;padding:var(--oe-space-6);margin-top:var(--oe-space-8)}
+  .lane1__lab{font-family:var(--oe-font-mono);text-transform:uppercase;font-size:12px;color:var(--oe-lime-400)}
+  .lane1__msg{font-family:var(--oe-font-serif);font-size:24px;margin:var(--oe-space-2) 0 0;color:#fff}
+  .lane2__lab{display:block;font-family:var(--oe-font-mono);text-transform:uppercase;font-size:12px;color:var(--oe-bluette-700);margin-top:var(--oe-space-6)}
+  .roadmap-tbl .rm-data{display:block;font-size:11px;opacity:.85;margin-top:2px}
+  .roadmap-tbl .rm-msg{font-style:italic;color:var(--oe-fg)}
+</style>
+</head><body>
+  <nav class="navdots" id="navdots" aria-label="Sezioni"></nav>
+  <main class="deck" id="deck"></main>
+  <script src="content.example.js"></script>
+  <script src="../../ds-kit/image-slot.js"></script>
+  <script>
+    document.documentElement.setAttribute('data-brand', (PRESENTAZIONE.brand||'oe'));
+    const bgCycle = ['s-light','s-grey']; // alternanza per le sezioni "neutre"
+    let neutralIdx = 0;
+    const deck = document.getElementById('deck');
+    const html = PRESENTAZIONE.sezioni.map((s, i) => {
+      const id = 's'+i;
+      if (s.tipo==='hero') return `<section id="${id}" class="slide s-dark"><div class="slide__inner"><span class="eyebrow">${s.pretitolo||''}</span><h1>${s.titolo}</h1>${s.intro?`<p class="intro">${s.intro}</p>`:''}</div></section>`;
+      if (s.tipo==='primary') return `<section id="${id}" class="slide s-primary"><div class="slide__inner"><span class="eyebrow">${s.pretitolo||''}</span><h2>${s.titolo}</h2>${s.bullet?`<ul class="bullets">${s.bullet.map(b=>`<li>${b}</li>`).join('')}</ul>`:''}</div></section>`;
+      if (s.tipo==='cards'){ const bg=bgCycle[neutralIdx++%2]; return `<section id="${id}" class="slide ${bg}"><div class="slide__inner"><span class="eyebrow">${s.pretitolo||''}</span><h2>${s.titolo}</h2><div class="cards">${(s.cards||[]).map(c=>`<div class="card"><h3>${c.h3}</h3><p>${c.testo}</p></div>`).join('')}</div></div></section>`; }
+      if (s.tipo==='cta') return `<section id="${id}" class="slide s-dark"><div class="slide__inner"><span class="eyebrow">${s.pretitolo||''}</span><h2>${s.titolo}</h2>${s.intro?`<p class="intro">${s.intro}</p>`:''}<a class="cta-btn" href="#"><span class="tile">→</span><span class="label">${s.cta||'Contattaci'}</span></a></div></section>`;
+      if (s.tipo==='comparison'){ const bg=bgCycle[neutralIdx++%2]; return `<section id="${id}" class="slide ${bg}"><div class="slide__inner"><span class="eyebrow">${s.pretitolo||''}</span><h2>${s.titolo}</h2><div class="compare">${(s.colonne||[]).map(c=>`<div class="compare__col"><span class="compare__tag">${c.tag||''}</span><h3>${c.titolo||''}</h3><p>${c.testo||''}</p>${c.meta?`<ul class="compare__meta">${c.meta.map(m=>`<li>${m}</li>`).join('')}</ul>`:''}</div>`).join('')}</div></div></section>`; }
+      if (s.tipo==='table'){ const bg=bgCycle[neutralIdx++%2]; return `<section id="${id}" class="slide ${bg}"><div class="slide__inner"><span class="eyebrow">${s.pretitolo||''}</span><h2>${s.titolo}</h2><div class="tbl-wrap"><table class="tbl"><thead><tr>${(s.colonne||[]).map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${(s.righe||[]).map(r=>`<tr>${r.map((cell,ci)=>`<td${ci===0?' class="tbl-key"':''}>${cell}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div></section>`; }
+      if (s.tipo==='roadmap'){ const bg=bgCycle[neutralIdx++%2]; const m=s.moduli||[]; return `<section id="${id}" class="slide ${bg}"><div class="slide__inner"><span class="eyebrow">${s.pretitolo||''}</span><h2>${s.titolo}</h2><div class="lane1">${s.lane1Label?`<span class="lane1__lab">${s.lane1Label}</span>`:''}<p class="lane1__msg">${s.lane1||''}</p></div>${s.lane2Label?`<span class="lane2__lab">${s.lane2Label}</span>`:''}<div class="tbl-wrap"><table class="tbl roadmap-tbl"><thead><tr>${m.map(x=>`<th>${x.nome||''}${x.data?`<span class="rm-data">${x.data}</span>`:''}</th>`).join('')}</tr></thead><tbody><tr>${m.map(x=>`<td class="rm-msg">${x.messaggio||''}</td>`).join('')}</tr><tr>${m.map(x=>`<td>${x.tassello||''}</td>`).join('')}</tr></tbody></table></div></div></section>`; }
+      const bg=bgCycle[neutralIdx++%2]; return `<section id="${id}" class="slide ${bg}"><div class="slide__inner"><span class="eyebrow">${s.pretitolo||''}</span><h2>${s.titolo}</h2>${s.intro?`<p class="intro">${s.intro}</p>`:''}</div></section>`;
+    }).join('');
+    // Footer standard INLINE (nessun fetch). Path logo relativo a questo kit.
+    const footer = `<footer class="slide" style="min-height:auto;background:var(--oe-bluette-900);color:var(--oe-white);padding:var(--oe-space-10) var(--oe-page-pad) var(--oe-space-6)">
+      <div style="max-width:1100px;margin:0 auto;width:100%">
+        <div style="display:flex;flex-direction:column;gap:var(--oe-space-4);border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:var(--oe-space-6)">
+          <img src="../../ds-kit/components/logo-white.svg" alt="OpenEconomics" style="height:40px;width:auto"/>
+          <p style="font-family:var(--oe-font-serif);font-size:20px;max-width:720px;margin:0;color:#fff">Enabling adaptation. Empowering impact. With platforms, strategy, and trust.</p>
+        </div>
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--oe-space-3);padding-top:var(--oe-space-5);font-size:14px;color:rgba(255,255,255,.85)">
+          <span>www.openeconomics.eu · Copyright © OpenEconomics Srl <span data-oe-year>2026</span></span>
+          <span style="display:flex;gap:var(--oe-space-6)"><a href="#" style="color:inherit;text-decoration:none">Privacy policy</a><a href="#" style="color:inherit;text-decoration:none">Cookie policy</a></span>
+        </div>
+      </div></footer>`;
+    deck.innerHTML = html + footer;
+    // anno dinamico
+    document.querySelectorAll('[data-oe-year]').forEach(el=>el.textContent=new Date().getFullYear());
+    // dot-nav + IntersectionObserver
+    const sezioni = [...document.querySelectorAll('main > section')];
+    const dots = document.getElementById('navdots');
+    dots.innerHTML = sezioni.map(s=>`<a href="#${s.id}" data-for="${s.id}" aria-label="Vai a ${s.id}"></a>`).join('');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ document.querySelectorAll('.navdots a').forEach(a=>a.classList.toggle('active', a.dataset.for===e.target.id)); }});
+    }, { threshold:.5 });
+    sezioni.forEach(s=>io.observe(s));
+  </script>
+</body></html>
