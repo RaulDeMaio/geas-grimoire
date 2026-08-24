@@ -17,7 +17,7 @@ def main():
         description="Scaffold technical documentation structure."
     )
     parser.add_argument(
-        "output_dir", help="Target directory for documentation (e.g., docs/technical)"
+        "output_dir", help="Target directory for documentation (e.g., docs/wiki)"
     )
     args = parser.parse_args()
 

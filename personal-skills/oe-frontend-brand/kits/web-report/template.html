@@ -1,0 +1,112 @@
+<!doctype html><html lang="it" data-brand="oe"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Report — OpenEconomics</title>
+<link rel="stylesheet" href="../../ds-kit/fonts.css">
+<link rel="stylesheet" href="../../ds-kit/colors_and_type.css">
+<style>
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--oe-font-sans);font-weight:300;color:var(--oe-fg);background:var(--oe-bg);font-size:18px;line-height:1.6}
+  .eyebrow{font-family:var(--oe-font-mono);text-transform:uppercase;background:var(--oe-lime-400);color:#000;display:inline-block;padding:6px 12px;font-size:13px;letter-spacing:.04em}
+  h1{font-family:var(--oe-font-serif);font-size:clamp(38px,5.5vw,68px);font-weight:400;line-height:1.06;margin:.3em 0 0}
+  h2{font-family:var(--oe-font-serif);font-size:clamp(26px,3.4vw,40px);font-weight:400;margin:0}
+  h3{font-family:var(--oe-font-sans);font-weight:500;font-size:20px;margin:0}
+  p{margin:.85em 0}
+  /* hero */
+  /* Hero: altezza contenuta nell'above-the-fold su 14" (si vede tutta, i contenuti sotto sbirciano).
+     Supporta un'immagine di background (REPORT.heroImage) con overlay gradiente Bluette per la leggibilità. */
+  .hero-r{position:relative;background:var(--oe-bluette-900);background-size:cover;background-position:center;color:#fff;padding:var(--oe-space-11) var(--oe-page-pad);min-height:clamp(420px,68vh,680px);display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
+  .hero-r h1{color:#fff} .hero-r .sub{font-size:clamp(18px,2.2vw,24px);color:rgba(255,255,255,.85);max-width:780px;margin-top:var(--oe-space-5)}
+  /* layout report: TOC + contenuto */
+  .report{display:grid;grid-template-columns:230px minmax(0,1fr);gap:var(--oe-space-10);max-width:1240px;margin:0 auto;padding:0 var(--oe-page-pad)}
+  .toc{position:sticky;top:24px;align-self:start;padding-top:var(--oe-space-11)}
+  .toc a{display:block;font-family:var(--oe-font-mono);font-size:12px;text-transform:uppercase;color:var(--oe-gray-500);text-decoration:none;padding:6px 0 6px 12px;border-left:2px solid var(--oe-gray-200)}
+  .toc a.active{color:var(--oe-bluette-700);border-left-color:var(--oe-lime-400)}
+  .report__main{padding:var(--oe-space-11) 0;max-width:820px}
+  section.rep{padding:var(--oe-space-9) 0;border-top:1px solid var(--oe-gray-200)}
+  section.rep:first-child{border-top:0}
+  section.rep h2{margin-top:var(--oe-space-3)}
+  /* callout */
+  .callout{background:var(--oe-bluette-050);border-left:3px solid var(--oe-lime-400);padding:var(--oe-space-6);margin:var(--oe-space-6) 0;transition:box-shadow var(--oe-dur-base,220ms) ease}
+  .callout:hover{box-shadow:var(--oe-shadow-2)}
+  /* accordion */
+  .acc__item{border:1px solid var(--oe-gray-200);margin-top:var(--oe-space-4)}
+  .acc__head{display:flex;justify-content:space-between;align-items:center;gap:var(--oe-space-4);padding:var(--oe-space-5) var(--oe-space-6);cursor:pointer;background:var(--oe-white);transition:background var(--oe-dur-base,220ms)}
+  .acc__head:hover{background:var(--oe-gray-100)}
+  .acc__head .sign{font-family:var(--oe-font-mono);color:var(--oe-bluette-700)}
+  .acc__body{display:none;padding:0 var(--oe-space-6) var(--oe-space-6)}
+  .acc__item.open .acc__body{display:block}
+  .acc__item.open .sign{transform:rotate(45deg)}
+  /* figure + flourish */
+  .figure{margin:var(--oe-space-8) 0;transition:box-shadow var(--oe-dur-base,220ms) ease}
+  .figure:hover{box-shadow:var(--oe-shadow-2)}
+  .flourish-embed{min-height:420px;border:1px solid var(--oe-gray-200);background:var(--oe-gray-100)}
+  .figure figcaption{font-family:var(--oe-font-mono);font-size:13px;color:var(--oe-gray-600);margin-top:var(--oe-space-3)}
+  .fig-title{font-family:var(--oe-font-serif);font-weight:400;font-size:clamp(22px,2.6vw,30px);margin:0 0 var(--oe-space-2)}
+  .chart-sub{font-family:var(--oe-font-mono);font-size:13px;text-transform:uppercase;color:var(--oe-gray-600);margin:0 0 var(--oe-space-4)}
+  @media(max-width:900px){.report{grid-template-columns:1fr}.toc{display:none}}
+</style>
+</head><body>
+  <header class="hero-r">
+    <span class="eyebrow" id="hero-eyebrow"></span>
+    <h1 id="hero-titolo"></h1>
+    <p class="sub" id="hero-sub"></p>
+  </header>
+  <div class="report">
+    <aside class="toc" id="toc" aria-label="Indice"></aside>
+    <main class="report__main" id="main"></main>
+  </div>
+  <div id="footer"></div>
+
+  <script src="content.example.js"></script>
+  <script src="../../ds-kit/image-slot.js"></script>
+  <script src="../../ds-kit/tokens.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="../../ds-kit/chart-preset.js"></script>
+  <script>
+    document.documentElement.setAttribute('data-brand', (REPORT.brand||'oe'));
+    document.getElementById('hero-eyebrow').textContent = REPORT.eyebrow||'';
+    document.getElementById('hero-titolo').textContent = REPORT.titolo||'';
+    document.getElementById('hero-sub').textContent = REPORT.sottotitolo||'';
+    if (REPORT.heroImage){ document.querySelector('.hero-r').style.backgroundImage = `linear-gradient(rgba(39,0,101,.82) 0%, rgba(39,0,101,.5) 100%), url('${REPORT.heroImage}')`; }
+    const main = document.getElementById('main');
+    main.innerHTML = REPORT.sezioni.map(s => {
+      const head = `${s.pretitolo?`<span class="eyebrow">${s.pretitolo}</span>`:''}${s.titolo?`<h2>${s.titolo}</h2>`:''}`;
+      if (s.tipo==='text')    return `<section id="${s.id}" class="rep">${head}<div class="body">${s.testo||''}</div></section>`;
+      if (s.tipo==='callout') return `<section id="${s.id}" class="rep">${head}<div class="callout">${s.testo||''}</div></section>`;
+      if (s.tipo==='accordion') return `<section id="${s.id}" class="rep">${head}<div class="acc">${(s.blocchi||[]).map(b=>`<div class="acc__item"><div class="acc__head"><h3>${b.h}</h3><span class="sign">+</span></div><div class="acc__body">${b.body||''}</div></div>`).join('')}</div></section>`;
+      if (s.tipo==='figure-flourish') return `<section id="${s.id}" class="rep">${head}<figure class="figure"><div class="flourish-embed" data-src="${s.flourishId}"><noscript>Visualizzazione interattiva (richiede connessione).</noscript></div>${s.didascalia?`<figcaption>${s.didascalia}</figcaption>`:''}</figure></section>`;
+      if (s.tipo==='figure-chart') return `<section id="${s.id}" class="rep">${s.titolo?`<h3 class="fig-title">${s.titolo}</h3>`:''}${s.sottotitolo?`<p class="chart-sub">${s.sottotitolo}</p>`:''}<figure class="figure"><div style="position:relative;height:380px"><canvas id="chart-${s.id}"></canvas></div>${s.didascalia?`<figcaption>${s.didascalia}</figcaption>`:''}</figure></section>`;
+      return `<section id="${s.id}" class="rep">${head}</section>`;
+    }).join('');
+    // TOC (solo sezioni con titolo)
+    const toc = document.getElementById('toc');
+    const linkable = REPORT.sezioni.filter(s=>s.titolo && s.tipo!=='figure-chart' && s.tipo!=='figure-flourish');
+    toc.innerHTML = linkable.map(s=>`<a href="#${s.id}" data-for="${s.id}">${s.titolo}</a>`).join('');
+    // accordion (event delegation)
+    main.addEventListener('click', e=>{ const h=e.target.closest('.acc__head'); if(h){ h.parentElement.classList.toggle('open'); } });
+    // scroll-spy
+    const io = new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ document.querySelectorAll('.toc a').forEach(a=>a.classList.toggle('active', a.dataset.for===e.target.id)); } }); }, { rootMargin:'-40% 0px -55% 0px' });
+    document.querySelectorAll('main > section').forEach(s=>io.observe(s));
+    // footer ANALISI inline (nessun fetch). Path logo relativo a questo kit.
+    document.getElementById('footer').innerHTML = `<footer style="background:var(--oe-bluette-900);color:#fff;padding:var(--oe-space-10) var(--oe-page-pad) var(--oe-space-6);margin-top:var(--oe-space-11)">
+      <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:var(--oe-space-8);border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:var(--oe-space-6)">
+        <div><img src="../../ds-kit/components/logo-white.svg" alt="OpenEconomics" style="height:40px"/><p style="font-family:var(--oe-font-serif);font-size:20px;max-width:520px;margin-top:var(--oe-space-4);color:#fff">Enabling adaptation. Empowering impact. With platforms, strategy, and trust.</p></div>
+        <div style="font-size:14px;line-height:1.5;color:rgba(255,255,255,.85)"><span style="font-family:var(--oe-font-mono);text-transform:uppercase;color:var(--oe-lime-400)">Condizioni d'uso</span><p style="margin-top:var(--oe-space-2)">Il presente documento e tutte le informazioni in esso contenute possono essere divulgati, a condizione che la distribuzione avvenga citando OpenEconomics come fonte. Le informazioni sono fornite a scopo puramente informativo e non implicano alcuna garanzia o impegno da parte di OpenEconomics. Le analisi economiche contenute nel documento sono state elaborate sulla base di fonti pubbliche autorevoli e fornitori di dati specialistici, con l'obiettivo di offrire una valutazione professionale, oggettiva e prudenziale in linea con le prassi metodologiche di comparto. Al documento e ai suoi contenuti si applicano il copyright e le norme in materia di protezione dei dati personali.</p></div>
+      </div>
+      <div style="max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--oe-space-3);padding-top:var(--oe-space-5);font-size:14px;color:rgba(255,255,255,.85)"><span>www.openeconomics.eu · Copyright © OpenEconomics Srl <span data-oe-year></span></span><span style="display:flex;gap:var(--oe-space-6)"><a href="#" style="color:inherit;text-decoration:none">Privacy policy</a><a href="#" style="color:inherit;text-decoration:none">Cookie policy</a></span></div>
+    </footer>`;
+    document.querySelectorAll('[data-oe-year]').forEach(el=>el.textContent=new Date().getFullYear());
+    if (typeof applyOEChartDefaults==='function') applyOEChartDefaults();
+    REPORT.sezioni.filter(s=>s.tipo==='figure-chart').forEach(s=>{
+      const c=document.getElementById('chart-'+s.id); if(!c||typeof Chart==='undefined') return;
+      const g=s.chart||{}; const suf=g.suffix||'';
+      new Chart(c,{ type:g.tipo||'bar',
+        data:{ labels:g.labels||[], datasets:(g.serie||[]).map((se,i)=>({label:se.nome,data:se.dati,backgroundColor:oeSeriesColor(i),borderColor:oeSeriesColor(i)})) },
+        options:{ responsive:true, maintainAspectRatio:false,
+          plugins:{ legend:{display:(g.serie||[]).length>1}, tooltip:{callbacks:{label:(ctx)=>` ${ctx.parsed.y}${suf}`}} },
+          scales:{ y:{ ticks:{ callback:(v)=>v+suf } } } } });
+    });
+  </script>
+  <!-- Flourish embed: incluso UNA sola volta, dopo tutti gli embed -->
+  <script src="https://public.flourish.studio/resources/embed.js"></script>
+</body></html>

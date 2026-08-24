@@ -16,8 +16,9 @@ first). Runs read-only, reports, then acts only on approved items.
 For each dir in `~/.claude/projects/*/memory/`:
 
 - List `project_*` files with mtime older than **30 days**. Each is a promotion-backlog
-  violation: it must be **promoted** (moved into the target repo's `docs/memory/` vault
-  via a PR), **archived** (content folded into another memory or repo doc), or **deleted**.
+  violation: it must be **promoted** (written as a new `docs/memory/entries/<ID>.md` file
+  plus an index line in the target repo's vault, via a PR — not appended to a monolithic
+  file), **archived** (content folded into another memory or repo doc), or **deleted**.
 - For every `project_*` file (any age), check whether its content names an artifact a
   teammate touches (repo file, PR, pipeline). If yes, flag as promotion candidate
   regardless of age.
@@ -34,15 +35,16 @@ For each dir in `~/.claude/projects/*/memory/`:
 - For each memory dir with a `MEMORY.md`: verify every file has an index line and every
   index line points at an existing file. Report mismatches.
 
-### 4. Repo vault expiry (rule D-2) — read lifecycle from entry bodies OR the index
+### 4. Repo vault expiry (rule D-2) — read lifecycle from each entry's own file
 
 - In each repo with `docs/memory/`: find entries with `review_by` in the past and
   `status: active`, and propose `status: stale` (excluded from synthesis) pending human
-  confirm-or-extend. Read `review_by`/`status` from the entry field block where present;
-  where entry *bodies* are legacy/grandfathered, read them from the `INDEX.md` table rows
-  (many repos backfill lifecycle columns into the index without touching the bodies — the
-  index is a valid source of truth for D-2). Only if neither the bodies nor the index
-  carry `review_by`/`status` at all, note "vault expiry skipped — ontology fields not
+  confirm-or-extend. Read `review_by`/`status` from each entry's own YAML frontmatter in
+  `docs/memory/entries/<ID>.md` — the canonical location once a repo's vault is sharded
+  (`INDEX.md` and registry files like `BUGS.md` are routing-only and never carry lifecycle
+  fields). If a repo still has monolithic `DECISIONS.md`/`BUGS.md` bodies (not yet split
+  into `entries/`), read the field block inline there instead. Only if neither location
+  carries `review_by`/`status` at all, note "vault expiry skipped — ontology fields not
   present" and move on. Do NOT edit vault files in this skill; vault changes go through
   a PR.
 

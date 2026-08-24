@@ -117,6 +117,11 @@ Readers should get the gist from the top of each section without scrolling.
   they are *scratch* — never git-add them, and delete them at the end. If you cite them as
   "Source" in a page, that citation dies when the scratch is deleted (a real bug seen in
   the field) — cite the real code/doc files instead.
+  **Scratch means what this run created and will delete — nothing else.** A file git already tracked
+  at the base commit is not scratch, whatever folder it sits in, including one named `scratch`: it is
+  a citable source. Test it, don't guess: `git ls-files --error-unmatch <path>` at the base. You may
+  translate such a file if the run's language rule requires it, but never relocate or delete one — if
+  a tracked file looks like junk, say so in the report and leave it.
 
 ## 7. Known gotchas
 
@@ -151,7 +156,8 @@ Readers should get the gist from the top of each section without scrolling.
 3. Fact spot-check: pick ~10 cited `path:line` claims and verify against real code.
 4. Readability: every page's Overview is genuinely non-technical.
 5. Coverage: every zone/module has a README; every routine op has a how-to.
-6. No scratch committed; no dead scratch citations remain.
+6. No scratch **this run created** was committed; no page cites a path this run deletes. Files
+   tracked before the run are sources, not scratch.
 
 ---
 

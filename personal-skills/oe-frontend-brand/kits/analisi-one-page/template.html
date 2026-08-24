@@ -1,0 +1,76 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analisi — OpenEconomics</title>
+<link rel="stylesheet" href="../../ds-kit/fonts.css">
+<link rel="stylesheet" href="../../ds-kit/colors_and_type.css">
+<style>
+  body{margin:0;font-family:var(--oe-font-sans);font-weight:300;color:var(--oe-fg);background:var(--oe-bg);font-size:18px}
+  .s-light{background:var(--oe-white)} .s-grey{background:var(--oe-gray-100)}
+  section{padding:var(--oe-space-11) var(--oe-page-pad)}
+  .oe-eyebrow{font-family:var(--oe-font-mono);text-transform:uppercase;background:var(--oe-lime-400);color:#000;display:inline-block;padding:4px 10px;font-size:14px}
+  .oe-eyebrow + h1, .oe-eyebrow + h2{margin-top:var(--oe-space-4)}
+  h1{font-family:var(--oe-font-serif);font-size:clamp(40px,6vw,64px);font-weight:400;margin:.4em 0}
+  h2{font-family:var(--oe-font-serif);font-size:clamp(28px,4vw,40px);font-weight:400}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--oe-space-6)}
+  .kpi{background:var(--oe-white);box-shadow:var(--oe-shadow-1);padding:var(--oe-space-6)}
+  .kpi .num{font-family:var(--oe-font-serif);font-size:48px;color:var(--oe-bluette-700)}
+  .kpi .lab{font-family:var(--oe-font-mono);text-transform:uppercase;font-size:13px;color:var(--oe-gray-700)}
+</style>
+</head><body>
+  <section class="s-light" style="display:grid;grid-template-columns:1fr auto;gap:var(--oe-space-8);align-items:start">
+    <div>
+      <span class="oe-eyebrow" data-bind="pretitolo">OBIETTIVI ANALISI</span>
+      <h1 data-bind="titolo">Titolo dell'analisi</h1>
+    </div>
+    <!-- image-slot: slot caricabile drag-and-drop. Attributi: id (required),
+         shape (rect|rounded|circle|pill), radius, mask, fit, position, placeholder, src.
+         Fuori dall'omelette runtime il drop funziona per la sessione ma non persiste. -->
+    <image-slot id="hero-cover"
+                style="width:320px;height:220px"
+                shape="rect"
+                fit="cover"
+                placeholder="Drop a cover image"></image-slot>
+  </section>
+  <section class="s-grey">
+    <div class="kpi-grid" id="kpi"></div>
+  </section>
+  <section class="s-light">
+    <div style="position:relative;height:360px"><canvas id="grafico1"></canvas></div>
+  </section>
+  <!-- Footer analisi inline (non usa fetch per compatibilità file://) -->
+  <footer class="oe-footer" style="background:var(--oe-bluette-900);color:var(--oe-white);padding:var(--oe-space-10) var(--oe-page-pad) var(--oe-space-6)">
+    <div class="oe-footer__top" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--oe-space-8);border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:var(--oe-space-6)">
+      <div>
+        <img src="../../ds-kit/components/logo-white.svg" alt="OpenEconomics" style="height:40px;width:auto"/>
+        <p style="font-family:var(--oe-font-serif);font-size:20px;max-width:520px;margin-top:var(--oe-space-4);color:var(--oe-white)">Enabling adaptation. Empowering impact. With platforms, strategy, and trust.</p>
+      </div>
+      <div style="font-size:14px;line-height:1.5;color:rgba(255,255,255,.85)">
+        <span style="font-family:var(--oe-font-mono);text-transform:uppercase;color:var(--oe-lime-400)">Condizioni d'uso</span>
+        <p style="margin-top:var(--oe-space-2)">Il presente documento e tutte le informazioni in esso contenute possono essere divulgati, a condizione che la distribuzione avvenga citando OpenEconomics come fonte. Le informazioni sono fornite a scopo puramente informativo e non implicano alcuna garanzia o impegno da parte di OpenEconomics. Le analisi economiche contenute nel documento sono state elaborate sulla base di fonti pubbliche autorevoli e fornitori di dati specialistici, con l'obiettivo di offrire una valutazione professionale, oggettiva e prudenziale in linea con le prassi metodologiche di comparto. Al documento e ai suoi contenuti si applicano il copyright e le norme in materia di protezione dei dati personali.</p>
+      </div>
+    </div>
+    <div class="oe-footer__bar" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--oe-space-3);padding-top:var(--oe-space-5);font-size:14px;color:rgba(255,255,255,.85)">
+      <span>www.openeconomics.eu · Copyright © OpenEconomics Srl <span data-oe-year>2026</span></span>
+      <span style="display:flex;gap:var(--oe-space-6)"><a href="#" style="color:inherit;text-decoration:none">Privacy policy</a><a href="#" style="color:inherit;text-decoration:none">Cookie policy</a></span>
+    </div>
+  </footer>
+
+  <script src="data.example.js"></script>
+  <script src="../../ds-kit/tokens.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="../../ds-kit/chart-preset.js"></script>
+  <script src="../../ds-kit/image-slot.js"></script>
+  <script>
+    // KPI
+    document.getElementById('kpi').innerHTML = ANALISI.kpi.map(k =>
+      `<div class="kpi"><div class="num">${OE.formatNumber(k.valore)}${k.suffix||''}</div><div class="lab">${k.label}</div></div>`).join('');
+    // Grafico
+    applyOEChartDefaults();
+    const g = ANALISI.grafici[0];
+    new Chart(document.getElementById('grafico1'), {
+      type: g.tipo,
+      data: { labels: g.labels, datasets: g.serie.map((s,i)=>({label:s.nome,data:s.dati,backgroundColor:oeSeriesColor(i),borderColor:oeSeriesColor(i)})) },
+      options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:g.serie.length>1}} }
+    });
+  </script>
+</body></html>

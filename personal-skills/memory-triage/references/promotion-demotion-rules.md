@@ -12,9 +12,9 @@ a promotion in progress (must resolve within one cycle).
 | User | `~/.claude/projects/*/memory/` | Personal semantic facts (`user_*`) + corrections (`feedback_*`); `project_*` = staging only | Auto-memory |
 | Repo | `<repo>/CLAUDE.md` | Procedural contract + pointers, never state | PR |
 | Repo | `.specify/memory/constitution.md` | Normative governance, versioned | Constitution amendment |
-| Repo | `docs/memory/` vault (INDEX, DECISIONS, ARCHITECTURE, BUGS, WORKLOG) | Team semantic + condensed episodic | Capture skills, PR-reviewed |
+| Repo | `docs/memory/` vault (INDEX routing map + one `entries/<ID>.md` file per entry + ARCHITECTURE narrative + BUGS registry + WORKLOG) | Team semantic + condensed episodic | Capture skills, PR-reviewed |
 | Repo | `docs/adr/` | Authoritative decision rationale (MADR); vault entries point, never restate | PR |
-| Feature | `.specify/specs/<f>/memory.md` + `memory-synthesis.md` | Episodic working memory; archived at feature close | Plan/capture skills |
+| Feature | `.specify/specs/<f>/memory.md` | Episodic working memory; archived at feature close | Plan/capture skills |
 
 ## Entry ontology fields (vault entries and single-note files)
 
@@ -30,7 +30,7 @@ F feedback · R reference) · `kind` · `scope` (user | repo:<name> | feature:<s
 |---|---|---|---|
 | P-1 | personal `project_*` → repo vault | cited in ≥2 distinct sessions, OR names an artifact a teammate touches; hard deadline: any `project_*` older than 30 days must promote or archive | PR review |
 | P-2 | feature memory → vault | at feature close, an item survives only if it states a "future mistake prevented" — else archived with the feature | capture-skill approval prompt |
-| P-3 | vault entry → constitution | cited in ≥3 feature memory-synthesis files (behaving as law → codify) | constitution amendment (versioned, human) |
+| P-3 | vault entry → constitution | cited in ≥3 merged PRs referencing the entry ID (behaving as law → codify) | constitution amendment (versioned, human) |
 | P-4 | anything → CLAUDE.md | behavioral + violated ≥2× despite existing memory + not expressible as a hook; 120-line ceiling: one line in, one line out | human edit |
 
 ## Demotion rules

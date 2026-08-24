@@ -163,7 +163,7 @@ Use the `databricks-mcp-sql` skill to verify the source publishes what you think
 
 4. **Row-count sanity.** Compare `COUNT(*)` of bronze vs silver vs gold for the KPI's grain. Large drops = filter; large inflation = unfiltered breakdown dimension.
 
-5. **Zero / null / inf distribution.** Per year, percentage of nulls/NaNs/zeros/inf for `KPI_COLUMN`. Reference the project's null-vs-zero policy in `docs/technical/data_quality/null_policy.md`.
+5. **Zero / null / inf distribution.** Per year, percentage of nulls/NaNs/zeros/inf for `KPI_COLUMN`. Reference the project's null-vs-zero policy in `docs/wiki/data_quality/null_policy.md`.
 
 ---
 

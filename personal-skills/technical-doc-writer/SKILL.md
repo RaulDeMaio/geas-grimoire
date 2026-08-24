@@ -37,7 +37,7 @@ See the bundled script for the canonical list, but generally:
 
 ### 0. Check Repo Type
 
-First check the repo type. If a `.specify/` directory exists, this is a Speckit repo — do NOT scaffold a competing `docs/technical/` tree; write technical documentation into the active feature's `.specify/specs/<feature>/` artifacts (or the repo's existing docs convention). Only run the scaffold script below in non-Speckit repos.
+First check the repo type. If a `.specify/` directory exists, this is a Speckit repo. Find the repo's doc tree before writing — it may be `docs/wiki/` (kebab-case slugs, `[[wikilinked]]`, e.g. `dbx-preparation`) or `docs/technical/` (flat `NN_` prefixes) depending on the repo. Add new deep-dives there via the governor's altitude rule (D-27, repo `docs/memory/entries/D-27.md`); scaffold nothing there. Feature-scoped writing stays in `.specify/specs/<feature>/`.
 
 ### 1. Scaffold the Structure
 
@@ -49,7 +49,7 @@ Don't worry about creating files manually. Use the bundled script to generate th
 python3 .claude/skills/technical-doc-writer/scripts/scaffold_docs.py <target_directory>
 ```
 
-_Example: `python3 .claude/skills/technical-doc-writer/scripts/scaffold_docs.py docs/technical`_
+_Example: `python3 .claude/skills/technical-doc-writer/scripts/scaffold_docs.py docs/wiki`_
 
 ### 2. Populate the Content
 

@@ -5,7 +5,7 @@ description: Structured Gold-table quality investigation for Delta Lake / Databr
 
 # Quality Analysis Skill
 
-Produces a structured findings report for a Gold layer table. The investigation pattern was validated and refined through a structured retrospective (`<TICKET-ID>`, 4 workflows, 14 failure modes identified). Null handling decisions are governed by the council-reviewed policy in `docs/technical/data_quality/null_policy.md`.
+Produces a structured findings report for a Gold layer table. The investigation pattern was validated and refined through a structured retrospective (`<TICKET-ID>`, 4 workflows, 14 failure modes identified). Null handling decisions are governed by the council-reviewed policy in `docs/wiki/data_quality/null_policy.md`.
 
 ## Scope boundary
 
@@ -223,7 +223,7 @@ Before closing the investigation:
 
 ## References
 
-- Bug classification taxonomy: `docs/technical/data_quality/bug_taxonomy.md`
-- Failure register (F-01 to F-14): `docs/technical/data_quality/failure_register.md`
-- Null/zero semantic policy: `docs/technical/data_quality/null_policy.md`
+- Bug classification taxonomy: `docs/wiki/data_quality/bug_taxonomy.md`
+- Failure register (F-01 to F-14): `docs/wiki/data_quality/failure_register.md`
+- Null/zero semantic policy: `docs/wiki/data_quality/null_policy.md`
 - Council transcript: `<tracker-folder>/<TICKET-ID>-retrospective/council-transcript-<date>.md`

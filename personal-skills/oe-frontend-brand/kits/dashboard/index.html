@@ -1,0 +1,29 @@
+<!doctype html><html lang="it" data-brand="oe"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard — OpenEconomics</title>
+<link rel="stylesheet" href="../../ds-kit/fonts.css">
+<link rel="stylesheet" href="../../ds-kit/colors_and_type.css">
+<link rel="stylesheet" href="dashboard.css">
+</head><body>
+  <div class="dash">
+    <div class="topbar">
+      <div><h1 id="dash-title"></h1><div class="sub" id="dash-sub"></div></div>
+      <div class="filters" id="filters"></div>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="charts">
+      <div class="panel"><h2 id="title-g-occ"></h2><div class="chart-wrap"><canvas id="g-occ"></canvas></div></div>
+      <div class="panel"><h2 id="title-g-imp"></h2><div class="chart-wrap"><canvas id="g-imp"></canvas></div></div>
+    </div>
+    <table class="tbl" id="tbl"></table>
+  </div>
+  <footer class="dash-footer">
+    <span>www.openeconomics.eu · Copyright © OpenEconomics Srl <span data-oe-year></span></span>
+    <span style="display:flex;gap:var(--oe-space-6)"><a href="#">Privacy policy</a><a href="#">Cookie policy</a></span>
+  </footer>
+  <script src="data.example.js"></script>
+  <script src="../../ds-kit/tokens.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="../../ds-kit/chart-preset.js"></script>
+  <script src="dashboard.js"></script>
+</body></html>

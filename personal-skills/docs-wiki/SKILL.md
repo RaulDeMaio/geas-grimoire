@@ -54,9 +54,10 @@ Settle these before dispatching (offer recommendations, don't over-ask):
 ## Step 3 — Run the swarm
 
 For anything beyond a few directories, dispatch a background `orchestrator` agent (Sonnet)
-with the filled-in `references/orchestration-prompt.md`. Keep the mode block you need,
-delete the others, and fill every `<PLACEHOLDER>`. For a tiny repo, run the same wave plan
-inline yourself.
+with the filled-in `references/orchestration-prompt.md` — **from the main thread only.** If you
+are already running as an orchestrator, run the wave plan yourself and dispatch leaf agents
+directly; never spawn a second orchestrator. Keep the mode block you need, delete the others,
+and fill every `<PLACEHOLDER>`. For a tiny repo, run the same wave plan inline yourself.
 
 Core orchestration rules (full detail in `references/method.md` §6):
 
@@ -85,7 +86,8 @@ git diff --name-only <base>..HEAD | grep -v '\.md$'         # must be empty (doc
 
 Then: spot-check ~10 cited `path:line` claims against the real tree (catches citation rot
 and stale-research paths); confirm every page Overview is genuinely non-technical; confirm
-no scratch was committed and no page cites deleted scratch. See `references/method.md` §8.
+none of **this run's own** scratch was committed and no page cites a path this run deletes. See
+`references/method.md` §8.
 
 ## Step 5 — Wrap up
 
