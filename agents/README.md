@@ -4,17 +4,19 @@ Reusable Claude Code subagent definitions. Drop a file into `~/.claude/agents/` 
 
 Precedence note: for **agents**, project scope overrides user scope (a repo's copy wins inside that repo). For **skills** it's the opposite (personal/user overrides project).
 
-| Agent | Role | Edits files? | Model |
-|---|---|---|---|
-| `orchestrator` | Background PI for multi-wave delegated workflows: dispatches subagents routed by complexity, synthesizes reports, never holds bulk artifacts; PushNotification when a user decision is pending. | no (delegates) | sonnet (override per dispatch) |
-| `implementer` | Generalist fallback: executes an already-decided change; commits to a branch in an isolated worktree. Prefer a domain profile below when one matches. | yes | none — route by complexity at dispatch |
-| `impl-dbx` | Databricks data-engineering implementer (ingestion bronze/silver, dbt gold, DAB YAML, delivery). | yes | sonnet |
-| `impl-fe` | Frontend implementer (React product UI + OE brand HTML assets; repo design guardrails outrank brand skills); dispatch `model: opus` for design-heavy work. | yes | sonnet |
-| `minion` | Trivial mechanical executor (moves, renames, one-liners, doc updates); anonymous subagent, never a named teammate. | yes | haiku |
-| `code-reviewer` | Read-only review of a diff for correctness bugs + quality/security/perf. | no | opus |
-| `code-simplifier` | Read-only pragmatic complexity audit (KISS/YAGNI; overengineering, code smells). | no | opus |
-| `speckit-cleanup-runner` | Thin dispatcher for `/speckit-cleanup-run` in any `.specify/`-initialized repo. | via skill | haiku |
-| `speckit-reconcile-runner` | Thin dispatcher for `/speckit-reconcile-run`. | via skill | haiku |
-| `speckit-verify-runner` | Thin dispatcher for `/speckit-verify-run` (read-only gate). | via skill | haiku |
+| Agent | Role | Edits files? | Model | maxTurns |
+|---|---|---|---|---|
+| `scout` | Cheap read-only locator for known symbols/patterns; returns a `path:line` table, no code, ≤20 lines. | no | haiku | 15 |
+| `minion` | Trivial mechanical executor (moves, renames, one-liners, doc updates); anonymous subagent, no git. | yes | haiku | 15 |
+| `implementer` | Executes an already-decided change in any repo (Databricks/dbt, frontend, general); domain hints point at the repo's own docs. `model: opus` only for hard debugging. Commits to a branch in an isolated worktree. | yes | sonnet, effort high | 60 |
+| `code-reviewer` | Read-only correctness/quality review; runs the tests, reports PASS/FAIL + findings, ≤20 lines. Edit/Write removed; `hooks/deny_bash_writes.sh` denies writing Bash. | no (enforced) | opus | 25 |
+| `code-simplifier` | Read-only pragmatic complexity audit (KISS/YAGNI), ≤20 lines. Same enforcement as code-reviewer. | no (enforced) | opus | 25 |
+| `speckit-cleanup-runner` | Thin dispatcher for `/speckit-cleanup-run` in any `.specify/`-initialized repo. | via skill | haiku | — |
+| `speckit-reconcile-runner` | Thin dispatcher for `/speckit-reconcile-run`. | via skill | haiku | — |
+| `speckit-verify-runner` | Thin dispatcher for `/speckit-verify-run` (read-only gate). | via skill | haiku | — |
+
+Retired 2026-09-10 (kept under `retired/` for reference, not installed): `orchestrator` (1 dispatch in 5,589 sessions; the main thread + ticket-loop orchestrate), `impl-dbx` and `impl-fe` (merged into `implementer`; their domain briefings duplicated the repos' own CLAUDE.md / docs/memory).
+
+Hooks these agents rely on live in `../hooks/`: `deny_bash_writes.sh` (referenced from reviewer frontmatter), `guard_push.sh` (force-push / protected-branch / prod-stg bundle guard, wired in settings.json), `require_dispatch_cap.sh` (warns on missing output cap or missing `model:`), `cap_nested_dispatch.sh` (denies `Agent` inside any subagent). Install by copying to `~/.claude/hooks/`; settings.json wiring is documented in each script header and is not versioned here.
 
 The three `speckit-*-runner` agents are repo-agnostic generalizations of project-scoped runners; they stop if the current repo has no `.specify/`.
